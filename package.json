@@ -1,0 +1,70 @@
+{
+  "name": "desktop-capri-ai",
+  "productName": "Desktop CapriAI",
+  "version": "1.0.0",
+  "description": "Desktop AI companion Capri – cyberpunk netrunner engram on your desktop",
+  "author": "Samuel Pelc",
+  "license": "MIT",
+  "main": "./out/main/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "dist": "electron-vite build && electron-builder --win",
+    "model": "\"C:/Program Files/Blender Foundation/Blender 5.2/blender.exe\" -b --python tools/build_model.py"
+  },
+  "build": {
+    "appId": "com.samuelpelc.desktopcapriai",
+    "productName": "Desktop CapriAI",
+    "directories": {
+      "output": "dist",
+      "buildResources": "resources"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources",
+        "to": "resources"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "resources/capri/capri_icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Desktop CapriAI"
+    }
+  },
+  "dependencies": {
+    "@fontsource/orbitron": "^5.3.0",
+    "@fontsource/rajdhani": "^5.3.0",
+    "@fontsource/share-tech-mono": "^5.3.0",
+    "@tensorflow/tfjs": "^4.22.0",
+    "dompurify": "^3.4.17",
+    "marked": "^18.1.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^45.2.1",
+    "electron-builder": "^26.18.0",
+    "electron-vite": "^6.0.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}

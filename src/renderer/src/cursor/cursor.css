@@ -1,0 +1,81 @@
+html,
+body {
+  background: transparent !important;
+  pointer-events: none;
+}
+
+#trail {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform;
+  filter: drop-shadow(0 0 6px rgba(255, 30, 80, 0.9));
+}
+.cursor.on {
+  opacity: 1;
+  animation: cursor-in 0.25s steps(3) 1;
+}
+.cursor.gone {
+  animation: cursor-out 0.38s steps(4) forwards;
+}
+.cursor svg {
+  display: block;
+  transition: transform 0.08s;
+}
+.cursor.press svg {
+  transform: scale(0.8) translate(2px, 2px);
+}
+.label {
+  position: absolute;
+  left: 30px;
+  top: 26px;
+  padding: 2px 6px;
+  white-space: nowrap;
+  background: rgba(5, 1, 2, 0.88);
+  border: 1px solid var(--red);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text);
+  letter-spacing: 0.06em;
+}
+.label:empty {
+  display: none;
+}
+
+@keyframes cursor-in {
+  0% { opacity: 0; filter: hue-rotate(120deg); }
+  50% { opacity: 0.4; }
+}
+@keyframes cursor-out {
+  0% { opacity: 1; }
+  30% { opacity: 0.3; filter: hue-rotate(90deg); }
+  60% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.ripple {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border: 2px solid var(--red);
+  animation: ripple 0.6s ease-out forwards;
+  transform: rotate(45deg);
+}
+@keyframes ripple {
+  to {
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+    opacity: 0;
+    border-color: var(--green);
+  }
+}

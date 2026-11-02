@@ -1,0 +1,95 @@
+html,
+body {
+  background: transparent !important;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#cv {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+body.hover {
+  cursor: grab;
+}
+body.dragging {
+  cursor: grabbing;
+}
+
+/* ---------- speech bubble ---------- */
+.bubble {
+  --cut: 10px;
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  right: 10px;
+  padding: 9px 12px 10px;
+  background: var(--panel);
+  border: 1px solid var(--red);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  transition: opacity 0.18s, transform 0.18s;
+  pointer-events: none;
+  cursor: pointer;
+}
+.bubble::before {
+  content: 'CAPRI //';
+  display: block;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--red);
+  margin-bottom: 3px;
+}
+.bubble.show {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  animation: bubble-glitch 0.35s steps(2) 1;
+}
+@keyframes bubble-glitch {
+  0% { transform: translateX(-6px); filter: hue-rotate(90deg); }
+  50% { transform: translateX(4px); }
+  100% { transform: none; filter: none; }
+}
+
+/* ---------- music notes ---------- */
+.notes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.note {
+  position: absolute;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-shadow: 0 0 8px currentColor;
+  animation: note-float 2.4s ease-out forwards;
+}
+@keyframes note-float {
+  0% { opacity: 0; transform: translate(0, 10px) scale(0.6) rotate(0); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), -140px) scale(1.15) rotate(var(--rot)); }
+}
+
+#fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

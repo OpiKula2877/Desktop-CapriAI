@@ -1,0 +1,239 @@
+@import '@fontsource/rajdhani/500.css';
+@import '@fontsource/rajdhani/700.css';
+@import '@fontsource/share-tech-mono/400.css';
+@import '@fontsource/orbitron/700.css';
+@import '@fontsource/orbitron/900.css';
+
+:root {
+  /* Capri palette – pulled from the model texture */
+  --red: #ff1e50;
+  --red-hot: #ff4d73;
+  --red-dim: #8c1029;
+  --red-deep: #3a0712;
+  --green: #19f07a;
+  --blue: #2a6be0;
+  --violet: #9a5cf0;
+  --ink: #050102;
+  --bg: #0b0305;
+  --panel: rgba(12, 2, 5, 0.975);
+  --panel-2: rgba(30, 6, 12, 0.92);
+  --line: rgba(255, 30, 80, 0.35);
+  --line-strong: rgba(255, 30, 80, 0.8);
+  --text: #ffe3e8;
+  --muted: #c07c89;
+  --faint: #7a3a48;
+
+  --font-ui: 'Rajdhani', 'Segoe UI', sans-serif;
+  --font-mono: 'Share Tech Mono', 'Cascadia Mono', Consolas, monospace;
+  --font-display: 'Orbitron', 'Rajdhani', sans-serif;
+
+  --cut: 14px;
+  --glow: 0 0 12px rgba(255, 30, 80, 0.55), 0 0 2px rgba(255, 30, 80, 0.9);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  color: var(--text);
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--red-dim);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--red);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* Angled-corner frame used everywhere */
+.cut {
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, rgba(255, 30, 80, 0.16), rgba(255, 30, 80, 0.04));
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: background 0.12s, color 0.12s, box-shadow 0.12s;
+}
+.btn:hover {
+  background: var(--red);
+  color: var(--ink);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.btn.ghost {
+  border-color: var(--line);
+  background: transparent;
+}
+.btn.ghost:hover {
+  background: rgba(255, 30, 80, 0.15);
+  color: var(--text);
+}
+.btn.green {
+  border-color: var(--green);
+  background: rgba(25, 240, 122, 0.08);
+}
+.btn.green:hover {
+  background: var(--green);
+  color: var(--ink);
+}
+.btn.icon {
+  width: 32px;
+  padding: 0;
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 10px;
+  outline: none;
+  user-select: text;
+}
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 1px var(--red), var(--glow);
+}
+.select option {
+  background: var(--bg);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Scanline + noise layer, add as an empty absolutely-positioned element */
+.scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* Glitch text: <span class="glitch" data-text="CAPRI">CAPRI</span> */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.glitch::before {
+  color: var(--green);
+  transform: translate(-1.5px, 0);
+  clip-path: inset(0 0 60% 0);
+  animation: glitch-a 2.8s infinite steps(1);
+  mix-blend-mode: screen;
+}
+.glitch::after {
+  color: var(--blue);
+  transform: translate(1.5px, 0);
+  clip-path: inset(55% 0 0 0);
+  animation: glitch-b 3.4s infinite steps(1);
+  mix-blend-mode: screen;
+}
+@keyframes glitch-a {
+  0%, 88%, 100% { transform: translate(0, 0); clip-path: inset(0 0 100% 0); }
+  90% { transform: translate(-3px, 1px); clip-path: inset(10% 0 55% 0); }
+  93% { transform: translate(2px, -1px); clip-path: inset(40% 0 30% 0); }
+  96% { transform: translate(-1px, 0); clip-path: inset(70% 0 5% 0); }
+}
+@keyframes glitch-b {
+  0%, 84%, 100% { transform: translate(0, 0); clip-path: inset(100% 0 0 0); }
+  86% { transform: translate(3px, 0); clip-path: inset(60% 0 10% 0); }
+  90% { transform: translate(-2px, 1px); clip-path: inset(20% 0 60% 0); }
+  94% { transform: translate(1px, 0); clip-path: inset(5% 0 80% 0); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch::before,
+  .glitch::after {
+    animation: none;
+  }
+}

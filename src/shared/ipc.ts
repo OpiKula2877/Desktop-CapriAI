@@ -1,0 +1,65 @@
+// IPC channel names. Renderers may only use channels listed here (enforced in preload).
+
+export const INVOKE_CHANNELS = [
+  'settings:get',
+  'settings:set',
+  'apikey:set',
+  'apikey:has',
+  'provider:test',
+  'chat:send',
+  'chat:history',
+  'chat:clear',
+  'chat:stop',
+  'confirm:respond',
+  'screen:capture',
+  'overlay:hide',
+  'overlay:hold',
+  'settings:open',
+  'memory:list',
+  'memory:delete',
+  'memory:clear',
+  'mood:get',
+  'mood:reset',
+  'folder:pick',
+  'avatar:move',
+  'avatar:interactive',
+  'avatar:click',
+  'avatar:menu',
+  'avatar:bounds',
+  'avatar:ghost',
+  'avatar:shake',
+  'avatar:dragDenied',
+  'paint:brush',
+  'paint:done',
+  'meltdown:apologize',
+  'window:close',
+  'window:minimize'
+] as const
+
+export const EVENT_CHANNELS = [
+  'chat:messages',
+  'chat:patch',
+  'chat:busy',
+  'confirm:request',
+  'settings:changed',
+  'mood',
+  'avatar:state',
+  'avatar:say',
+  'avatar:glitch',
+  'avatar:mode',
+  'avatar:dash',
+  'nowplaying',
+  'overlay:shown',
+  'overlay:hiding',
+  'cursor:goto',
+  'cursor:hide',
+  'meltdown:init',
+  'stage:ghost',
+  'stage:blackout',
+  'avatar:locked',
+  'paint:start',
+  'paint:finish'
+] as const
+
+export type InvokeChannel = (typeof INVOKE_CHANNELS)[number]
+export type EventChannel = (typeof EVENT_CHANNELS)[number]
